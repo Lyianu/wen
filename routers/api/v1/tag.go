@@ -70,9 +70,49 @@ func AddTag(c *gin.Context) {
 }
 
 func EditTag(c *gin.Context) {
+	id := com.StrTo(c.Param("id")).MustInt()
+	name := c.Query("name")
+	modifiedBy := c.Query("modified_by")
 
+	valid := validation.Validation{}
+
+	var state int = -1
+	if arg := c.Query("state"); arg != "" {
+		state = com.StrTo(arg).MustInt()
+		valid.Range(state, 0, 1, "state").Message("State must be 0 or 1")
+	}
+
+	valid.Required(id, "id").Message("id must not be null")
+	valid.Required(modifiedBy, "modified_by").Message("ModifiedBy must not be null")
+	valid.MaxSize(modifiedBy, 100, "modified_by").Message("ModifiedBy must not exceed 100 characters")
+	valid.MaxSize(name, 100, "name").Message("Name must not exceed 100 characters")
+
+	code := e.INVALID_PARAMS
+	if !valid.HasErrors() {
+		code = e.SUCCESS
+		if models.ExistTagByID(id) {
+			data := make(map[string]interface{})
+			data["modified_by"] = modifiedBy
+			if name != "" {
+				data["name"] = name
+			}
+			if state != -1 {
+				data["state"] = state
+			}
+
+			models.EditTag(id, data)
+		} else {
+			code = e.ERROR_NOT_EXIST_TAG
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": make(map[string]string),
+	})
 }
 
 func DeleteTag(c *gin.Context) {
-
+	
 }
