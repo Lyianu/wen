@@ -43,4 +43,5 @@ func init() {
 		panic("failed to connect to database")
 	}
 
+	db.AutoMigrate(&Tag{})
 }
