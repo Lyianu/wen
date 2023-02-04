@@ -1,8 +1,6 @@
 // code.go contains Status Codes for HTTP responses
 package e
 
-import "net/http"
-
 const (
 	SUCCESS        = 200 // http.StatusOK
 	ERROR          = 500 // http.StatusInternalServerError
@@ -17,9 +15,3 @@ const (
 	ERROR_AUTH_TOKEN               = 20003
 	ERROR_AUTH                     = 20004
 )
-
-func main() {
-	http.StatusBadGateway
-	http.StatusBadRequest
-	http.StatusInternalServerError
-}

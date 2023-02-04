@@ -5,16 +5,11 @@ import (
 	"net/http"
 
 	"github.com/Lyianu/wen/pkg/setting"
-	"github.com/gin-gonic/gin"
+	"github.com/Lyianu/wen/routers"
 )
 
 func main() {
-	router := gin.Default()
-	router.GET("/test", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "test",
-		})
-	})
+	router := routers.InitRouter()
 
 	fmt.Printf("%d", setting.HTTPPort)
 
