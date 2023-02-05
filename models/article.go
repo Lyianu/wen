@@ -3,8 +3,8 @@ package models
 type Article struct {
 	Model
 
-	TagID []int `json:"tag_id"`
-	Tags  []Tag `json:"tags" gorm:"many2many:article_tags"`
+	TagID []int  `json:"tag_id" gorm:"-"`
+	Tags  []*Tag `json:"tags" gorm:"many2many:article_tags"`
 
 	Title      string `json:"title"`
 	Desc       string `json:"desc"`

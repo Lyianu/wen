@@ -3,6 +3,8 @@ package models
 type Tag struct {
 	Model
 
+	Articles []*Article `gorm:"many2many:article_tags"`
+
 	Name       string `json:"name"`
 	CreatedBy  string `json:"created_by"`
 	ModifiedBy string `json:"modified_by"`
@@ -64,10 +66,10 @@ func EditTag(id int, data interface{}) bool {
 	return true
 }
 
-func FindTags(ids ...int) (tags []Tag) {
+func FindTags(ids ...int) (tags []*Tag) {
 	for _, id := range ids {
-		var tag Tag
-		db.First(&tag, id)
+		var tag *Tag
+		db.First(tag, id)
 		tags = append(tags, tag)
 	}
 	return
