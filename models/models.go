@@ -12,9 +12,11 @@ import (
 var db *gorm.DB
 
 type Model struct {
+	gorm.Model
+
 	ID         uint `gorm:"primaryKey" json:"id"`
-	CreatedOn  int  `json:"created_on"`
-	ModifiedOn int  `json:"modified_on"`
+	CreatedAt  int  `json:"created_at"`
+	ModifiedAt int  `json:"modified_at"`
 }
 
 func init() {
@@ -43,5 +45,5 @@ func init() {
 		panic("failed to connect to database")
 	}
 
-	db.AutoMigrate(&Tag{})
+	db.AutoMigrate(&Tag{}, &Article{})
 }

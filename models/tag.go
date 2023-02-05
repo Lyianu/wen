@@ -1,9 +1,7 @@
 package models
 
-import "gorm.io/gorm"
-
 type Tag struct {
-	gorm.Model
+	Model
 
 	Name       string `json:"name"`
 	CreatedBy  string `json:"created_by"`
@@ -64,4 +62,13 @@ func EditTag(id int, data interface{}) bool {
 	db.Model(&Tag{}).Where("id = ?", id).Updates(data)
 
 	return true
+}
+
+func FindTags(ids ...int) (tags []Tag) {
+	for _, id := range ids {
+		var tag Tag
+		db.First(&tag, id)
+		tags = append(tags, tag)
+	}
+	return
 }
