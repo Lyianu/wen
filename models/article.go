@@ -46,9 +46,9 @@ func EditArticle(id int, data interface{}) bool {
 }
 
 func AddArticle(data map[string]interface{}) bool {
-	tags := FindTags(data["tags"].([]int)...)
+	tags := FindTags(data["tag_id"].([]int)...)
 	db.Create(&Article{
-		TagID:     data["tags"].([]int),
+		TagID:     data["tag_id"].([]int),
 		Tags:      tags,
 		Title:     data["title"].(string),
 		Desc:      data["desc"].(string),
