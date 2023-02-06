@@ -6,11 +6,14 @@ import (
 
 	"github.com/Lyianu/wen/models"
 	"github.com/Lyianu/wen/pkg/e"
+	"github.com/Lyianu/wen/pkg/setting"
+	"github.com/Lyianu/wen/util"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/com"
 )
 
+// GetArticle returns desired article specified by id
 func GetArticle(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
@@ -33,6 +36,9 @@ func GetArticle(c *gin.Context) {
 	})
 }
 
+// AddArticle adds an article to the db using user-provided data
+// it first parse the JSON object in the request, valid it and call
+// models.AddArticle to finish
 func AddArticle(c *gin.Context) {
 	var article models.Article
 	err := c.BindJSON(&article)
@@ -48,6 +54,7 @@ func AddArticle(c *gin.Context) {
 	valid.Required(article.CreatedBy, "created_by").Message("Created_by must not be null")
 	valid.Range(article.State, 0, 1, "state").Message("State must be 0 or 1")
 
+	//TODO: assign default tag when user don't specify
 	article.Tags = models.FindTags(article.TagID...)
 
 	code := e.INVALID_PARAMS
@@ -76,8 +83,48 @@ func AddArticle(c *gin.Context) {
 	})
 }
 
+// GetArticles return the requested articles to user, using
+// user-provided constraints and get articles with models.GetArticles
 func GetArticles(c *gin.Context) {
+	// data stores the final data given to user
+	data := make(map[string]interface{})
+	// maps is the constraints given by user
+	maps := make(map[string]interface{})
+	valid := validation.Validation{}
 
+	var state int = -1
+	if arg := c.Query("state"); arg != "" {
+		state = com.StrTo(arg).MustInt()
+		maps["state"] = state
+
+		valid.Range(state, 0, 1, "state").Message("State must be 0 or 1")
+	}
+
+	var tagId int = -1
+	if arg := c.Query("tag_id"); arg != "" {
+		tagId = com.StrTo(arg).MustInt()
+		maps["tag_id"] = tagId
+
+		valid.Min(tagId, 1, "tag_id").Message("Tag_id must be positive")
+	}
+
+	code := e.INVALID_PARAMS
+	if !valid.HasErrors() {
+		code = e.SUCCESS
+
+		data["lists"] = models.GetArticles(util.GetPage(c), setting.PageSize, maps)
+		data["total"] = models.GetArticleTotal(maps)
+	} else {
+		for _, err := range valid.Errors {
+			log.Printf("err.key: %s, err.message: %s\n", err.Key, err.Message)
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
+	})
 }
 
 func EditArticle(c *gin.Context) {
