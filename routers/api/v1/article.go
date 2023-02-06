@@ -128,7 +128,65 @@ func GetArticles(c *gin.Context) {
 }
 
 func EditArticle(c *gin.Context) {
+	valid := validation.Validation{}
 
+	var data struct {
+		TagID      []int  `json:"tag_id"`
+		Title      string `json:"title"`
+		Desc       string `json:"desc"`
+		Content    string `json:"content"`
+		ModifiedBy string `json:"modified_by"`
+		State      string `json:"state"`
+	}
+	id := com.StrTo(c.Param("id")).MustInt()
+
+	valid.Range(data.State, 0, 1, "state").Message("State must be 0 or 1")
+	valid.Min(id, 1, "id").Message("ID must be positive")
+	valid.MaxSize(data.Title, 100, "title").Message("Title length must not exceed 100")
+	valid.MaxSize(data.Desc, 255, "desc").Message("Description length must not exceed 255")
+	valid.MaxSize(data.Content, 65535, "content").Message("Content length must not exceed 65535")
+	valid.Required(data.ModifiedBy, "modified_by").Message("Modified_by must not be null")
+	valid.MaxSize(data.ModifiedBy, 100, "modified_by").Message("Modified_by length must not exceed 100")
+
+	code := e.INVALID_PARAMS
+	if !valid.HasErrors() {
+		if models.ExistArticleByID(id) {
+			if models.ExistTagsByID(data.TagID...) {
+				editData := make(map[string]interface{})
+				if len(data.TagID) > 0 {
+					editData["tag_id"] = data.TagID
+				}
+				if data.Title != "" {
+					editData["title"] = data.Title
+				}
+				if data.Desc != "" {
+					editData["desc"] = data.Desc
+				}
+				if data.Content != "" {
+					editData["content"] = data.Content
+				}
+
+				editData["modified_by"] = data.ModifiedBy
+
+				models.EditArticle(id, editData)
+				code = e.SUCCESS
+			} else {
+				code = e.ERROR_NOT_EXIST_TAG
+			}
+		} else {
+			code = e.ERROR_NOT_EXIST_ARTICLE
+		}
+	} else {
+		for _, err := range valid.Errors {
+			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": make(map[string]interface{}),
+	})
 }
 
 func DeleteArticle(c *gin.Context) {

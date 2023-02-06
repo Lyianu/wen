@@ -44,6 +44,17 @@ func ExistTagByID(id int) bool {
 	return false
 }
 
+// ExistTagsByID checks every Tag specified by ids
+// it returns true only when every Tag exists
+func ExistTagsByID(ids ...int) bool {
+	for _, id := range ids {
+		if !ExistTagByID(id) {
+			return false
+		}
+	}
+	return true
+}
+
 func AddTag(name string, state int, createdBy string) bool {
 	db.Create(&Tag{
 		Name:      name,
