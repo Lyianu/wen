@@ -47,5 +47,5 @@ func init() {
 
 	db.AutoMigrate(&Tag{}, &Article{}, &Auth{})
 
-	AddAuth("test", "test123")
+	//AddAuth("test", "test123")
 }
