@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.cdnfonts.com/css/gotham');
+.nav-bar {
+    font-family: 'Gotham', sans-serif;
+}
