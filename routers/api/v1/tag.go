@@ -62,7 +62,7 @@ func AddTag(c *gin.Context) {
 		}
 	}
 
-	c.JSON(http.StatusOK, gin.H{
+	c.JSON(http.StatusCreated, gin.H{
 		"code": code,
 		"msg":  e.GetMsg(code),
 		"data": make(map[string]string),

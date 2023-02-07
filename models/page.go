@@ -12,3 +12,16 @@ type Page struct {
 	ModifiedBy string `json:"modified_by"`
 	State      int    `json:"state"`
 }
+
+func AddPage(data map[string]interface{}) bool {
+	db.Create(&Page{
+		Title:      data["title"].(string),
+		Desc:       data["desc"].(string),
+		Content:    data["content"].(string),
+		CreatedBy:  data["created_by"].(string),
+		ModifiedBy: data["modified_by"].(string),
+		State:      data["state"].(int),
+	})
+
+	return true
+}

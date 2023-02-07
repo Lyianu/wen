@@ -14,7 +14,7 @@ var MsgFlags = map[int]string{
 	ERROR_AUTH_CHECK_TOKEN_FAIL:    "Auth failed",
 	ERROR_AUTH_CHECK_TOKEN_TIMEOUT: "Token timed out",
 	ERROR_AUTH_TOKEN:               "Token Generation Failed",
-	ERROR_AUTH:                     "Invalid Token",
+	ERROR_AUTH:                     "Invalid Credentials",
 }
 
 func GetMsg(code int) string {

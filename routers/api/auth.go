@@ -23,11 +23,7 @@ func GetAuth(c *gin.Context) {
 	code := e.INVALID_PARAMS
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"code": code,
-			"msg":  e.GetMsg(code),
-			"data": data,
-		})
+		util.BadRequest(c, code)
 		return
 	}
 

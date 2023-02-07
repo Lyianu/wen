@@ -45,7 +45,7 @@ func init() {
 		panic("failed to connect to database")
 	}
 
-	db.AutoMigrate(&Tag{}, &Article{}, &Auth{})
+	db.AutoMigrate(&Tag{}, &Article{}, &Auth{}, &Page{})
 
 	//AddAuth("test", "test123")
 }
