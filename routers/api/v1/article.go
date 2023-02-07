@@ -177,9 +177,7 @@ func EditArticle(c *gin.Context) {
 			code = e.ERROR_NOT_EXIST_ARTICLE
 		}
 	} else {
-		for _, err := range valid.Errors {
-			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
-		}
+		util.LogValidationErrors(valid)
 	}
 
 	c.JSON(http.StatusOK, gin.H{

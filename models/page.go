@@ -48,3 +48,10 @@ func DeletePage(id int) bool {
 
 	return true
 }
+
+func ExistPageByID(id int) bool {
+	var page Page
+	db.Find(&page, id)
+
+	return page.ID > 0
+}
