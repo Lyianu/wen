@@ -115,9 +115,7 @@ func GetArticles(c *gin.Context) {
 		data["lists"] = models.GetArticles(util.GetPage(c), setting.PageSize, maps)
 		data["total"] = models.GetArticleTotal(maps)
 	} else {
-		for _, err := range valid.Errors {
-			log.Printf("err.key: %s, err.message: %s\n", err.Key, err.Message)
-		}
+		util.LogValidationErrors(valid)
 	}
 
 	c.JSON(http.StatusOK, gin.H{

@@ -12,11 +12,59 @@ import (
 )
 
 func GetPages(c *gin.Context) {
+	// data stores the final data given to user
+	data := make(map[string]interface{})
+	// maps is the constraints given by user
+	maps := make(map[string]interface{})
+	valid := validation.Validation{}
 
+	var state int = -1
+	if arg := c.Query("state"); arg != "" {
+		state = com.StrTo(arg).MustInt()
+		maps["state"] = state
+
+		valid.Range(state, 0, 1, "state").Message("State must be 0 or 1")
+	}
+
+	code := e.INVALID_PARAMS
+	if !valid.HasErrors() {
+		code = e.SUCCESS
+
+		data["lists"] = models.GetPages(maps)
+	} else {
+		util.LogValidationErrors(valid)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
+	})
 }
 
 func GetPage(c *gin.Context) {
+	id := com.StrTo(c.Param("id")).MustInt()
+	valid := validation.Validation{}
 
+	valid.Min(id, 1, "id").Message("ID must be positive")
+	code := e.INVALID_PARAMS
+	var page models.Page
+	if !valid.HasErrors() {
+		if models.ExistPageByID(id) {
+			page = models.GetPage(id)
+			code = e.SUCCESS
+		} else {
+			code = e.ERROR_NOT_EXIST_PAGE
+		}
+	} else {
+		util.LogValidationErrors(valid)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": page,
+	})
 }
 
 func AddPage(c *gin.Context) {
