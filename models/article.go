@@ -37,6 +37,7 @@ func GetArticle(id int) (article Article) {
 
 func EditArticle(id int, data interface{}) bool {
 	db.First(&Article{}, id).Updates(data)
+
 	return true
 }
 

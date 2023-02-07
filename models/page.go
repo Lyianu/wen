@@ -25,3 +25,26 @@ func AddPage(data map[string]interface{}) bool {
 
 	return true
 }
+
+func EditPage(id int, data map[string]interface{}) bool {
+	db.First(&Page{}, id).Updates(data)
+
+	return true
+}
+
+func GetPage(id int) (page Page) {
+	db.First(&page)
+
+	return
+}
+
+func GetPages(maps interface{}) (pages []Page) {
+	db.Where(maps).Find(&pages)
+	return
+}
+
+func DeletePage(id int) bool {
+	db.Delete(&Page{}, id)
+
+	return true
+}
