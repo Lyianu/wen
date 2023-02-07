@@ -8,10 +8,13 @@ var MsgFlags = map[int]string{
 	ERROR_NOT_EXIST_TAG:     "Tag not exist",
 	ERROR_NOT_EXIST_ARTICLE: "Article not exist",
 
-	ERROR_AUTH_CHECK_TOKEN_FAIL:    "Token鉴权失败",
-	ERROR_AUTH_CHECK_TOKEN_TIMEOUT: "Token已超时",
-	ERROR_AUTH_TOKEN:               "Token生成失败",
-	ERROR_AUTH:                     "Token错误",
+	ERROR_EXIST_PAGE:     "Page already exists",
+	ERROR_NOT_EXIST_PAGE: "Page not exist",
+
+	ERROR_AUTH_CHECK_TOKEN_FAIL:    "Auth failed",
+	ERROR_AUTH_CHECK_TOKEN_TIMEOUT: "Token timed out",
+	ERROR_AUTH_TOKEN:               "Token Generation Failed",
+	ERROR_AUTH:                     "Invalid Token",
 }
 
 func GetMsg(code int) string {
