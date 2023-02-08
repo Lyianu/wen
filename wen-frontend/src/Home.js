@@ -3,32 +3,33 @@ import Blog from "./components/Blog";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import { useState, useEffect } from "react";
+import useFetch from "./useFetch";
 
 const Home = () => {
     
     const [nav, setNav] = useState(false)
+    const [title, setTitle] = useState("")
+    const [imgUrl, setImgUrl] = useState("")
     const toggleNav = () => {
         //alert("clicked!")
         setNav(!nav)
     }
-    // const [pages, setPages] = useState(null)
+    const { data, isPending } = useFetch("http://localhost:8000/api/v1/site")
 
-    // useEffect(() => {
-    // fetch("http://localhost:8000/api/v1/pages")
-    //     .then((response) => {
-    //       return response.json()
-    //     })
-    //     .then((data) => {
-    //       //console.log(data.data.lists)
-    //       setPages(data.data.lists)
-    //     })
-    // }, [])
+    useEffect(() => {
+        if (data) {
+            setTitle(data.name);
+            setImgUrl(data.image_url); 
+        }
+    }, [data])
+
+
 
     return ( 
         <div>
-            <Hero />
+            <Hero title_text={ title } image_url={ imgUrl } />
             <Blog />
-            <Footer />
+            <Footer title_text={ title } />
         </div>
      );
 }

@@ -42,7 +42,7 @@ const Navbar = ({toggle}) => {
       { /* blur should be applied to parent element so the contents will be blurred too */}
       <div className={nav ? 'z-10 nav-bar blur-sm fixed top-0 right-0 left-0 ': 'nav-bar fixed top-0  left-0 right-0'}>
 
-        <div className="p-3 flex justify-between">
+        <div className="p-8 flex justify-between">
           <h1 className={nav ? "opaque" : "font-bold underline underline-offset-4"}>
             <Link to="/">Wen</Link>
           </h1>
@@ -50,7 +50,7 @@ const Navbar = ({toggle}) => {
           { !isPending && pages && (
               <ul className="flex justify-between invisible md:visible uppercase">
                 {pages.map(page => (
-                  <li className='px-3 hover:underline'><Link to={"/read/" + page.id}>{page.title}</Link></li>
+                  <li className='px-3 hover:underline' key={page.id}><Link to={"/read/" + page.id}>{page.title}</Link></li>
                 ))}
               </ul>
             )
