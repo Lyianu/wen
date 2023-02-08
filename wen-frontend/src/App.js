@@ -1,11 +1,12 @@
-import Navbar from './components/Navbar'
-import Blog from './components/Blog'
+import Home from './Home'
+import React from 'react'
 
 export default function App() {
     return (
-       <div>
-        <Navbar />
-        <Blog />
-       </div>
+       <>
+       <React.StrictMode>
+        <Home />
+        </React.StrictMode>
+       </>
     )
 }
