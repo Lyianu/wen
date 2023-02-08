@@ -14,6 +14,15 @@ type Page struct {
 }
 
 func AddPage(data map[string]interface{}) bool {
+	if _, ok := data["desc"]; !ok {
+		data["desc"] = ""
+	}
+	if _, ok := data["state"]; !ok {
+		data["state"] = 0
+	}
+	if _, ok := data["modified_by"]; !ok {
+		data["modified_by"] = data["created_by"]
+	}
 	db.Create(&Page{
 		Title:      data["title"].(string),
 		Desc:       data["desc"].(string),
@@ -33,7 +42,7 @@ func EditPage(id int, data map[string]interface{}) bool {
 }
 
 func GetPage(id int) (page Page) {
-	db.First(&page)
+	db.First(&page, id)
 
 	return
 }

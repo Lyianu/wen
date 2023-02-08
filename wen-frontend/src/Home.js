@@ -11,27 +11,24 @@ const Home = () => {
         //alert("clicked!")
         setNav(!nav)
     }
-    const [pages, setPages] = useState(null)
+    // const [pages, setPages] = useState(null)
 
-    useEffect(() => {
-    fetch("http://localhost:8000/api/v1/pages")
-        .then((response) => {
-          return response.json()
-        })
-        .then((data) => {
-          //console.log(data.data.lists)
-          setPages(data.data.lists)
-        })
-    }, [])
+    // useEffect(() => {
+    // fetch("http://localhost:8000/api/v1/pages")
+    //     .then((response) => {
+    //       return response.json()
+    //     })
+    //     .then((data) => {
+    //       //console.log(data.data.lists)
+    //       setPages(data.data.lists)
+    //     })
+    // }, [])
 
     return ( 
         <div>
-            {pages && <Navbar toggle={toggleNav} pages={pages} />}
-            <div className={nav ? "blur-sm z-0" : ""}>
-                <Hero />
-                <Blog />
-                <Footer />
-            </div>
+            <Hero />
+            <Blog />
+            <Footer />
         </div>
      );
 }

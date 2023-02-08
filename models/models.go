@@ -45,7 +45,12 @@ func init() {
 		panic("failed to connect to database")
 	}
 
-	db.AutoMigrate(&Tag{}, &Article{}, &Auth{}, &Page{})
+	db.AutoMigrate(&Tag{}, &Article{}, &Auth{}, &Page{}, &Site{})
 
+	if setting.RunMode == "debug" {
+		AddSite("Wen")
+		AddAuth("test", "123")
+		AddPage(map[string]interface{}{"title": "About", "content": "Lorem", "desc": "lorem", "created_by": "Wen-authors"})
+	}
 	//AddAuth("test", "test123")
 }
