@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import Blog from "./components/Blog";
+import BlogList from "./components/BlogList";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import { useState, useEffect } from "react";
@@ -15,10 +15,11 @@ const Home = ({ title, imgUrl}) => {
 
 
 
+
     return ( 
         <div>
             <Hero title_text={ title } image_url={ imgUrl } desc_text="Wen" />
-            <Blog />
+            <BlogList  />
         </div>
      );
 }

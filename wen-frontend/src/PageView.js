@@ -1,4 +1,3 @@
-import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import useFetch from "./useFetch";
 import { useParams } from "react-router-dom";
