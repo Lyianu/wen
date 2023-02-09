@@ -5,18 +5,20 @@ package models
 type Site struct {
 	Model
 
-	SiteImageURL string `json:"image_url"`
-	Name         string `json:"name"`
+	SiteImageURL string `json:"image_url"` // hero image
+	Name         string `json:"name"`      // site name
+	BgTitle      string `json:"bg_title"`  // background title
 }
 
 // Variable Wen Contains the current config of the website
 var Wen Site
 
 // As a website only has one config, AddSite should be called only once
-func AddSite(name string, img_url string) bool {
+func AddSite(name string, img_url string, bgTitle string) bool {
 	db.Create(&Site{
 		Name:         name,
 		SiteImageURL: img_url,
+		BgTitle:      bgTitle,
 	})
 
 	UpdateSite()

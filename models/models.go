@@ -49,7 +49,7 @@ func init() {
 
 	if setting.RunMode == "debug" {
 		// No copyright picture
-		AddSite("Wen", "picture_link")
+		AddSite("Wen", "/pexels-flo-dahm-529643.jpg", "Lorem")
 		AddAuth("test", "123")
 		AddPage(map[string]interface{}{"title": "About", "content": "Lorem", "desc": "lorem", "created_by": "Wen-authors"})
 	}
