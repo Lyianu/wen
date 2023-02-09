@@ -17,7 +17,7 @@ const Home = ({ title, imgUrl}) => {
 
     return ( 
         <div>
-            <Hero title_text={ title } image_url={ imgUrl } />
+            <Hero title_text={ title } image_url={ imgUrl } desc_text="Wen" />
             <Blog />
         </div>
      );
