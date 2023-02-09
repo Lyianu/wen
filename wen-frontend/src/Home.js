@@ -5,7 +5,7 @@ import Hero from "./components/Hero";
 import { useState, useEffect } from "react";
 import useFetch from "./useFetch";
 
-const Home = ({ title, imgUrl}) => {
+const Home = ({ title, imgUrl, desc_text}) => {
     
     const [nav, setNav] = useState(false)
     const toggleNav = () => {
@@ -18,7 +18,7 @@ const Home = ({ title, imgUrl}) => {
 
     return ( 
         <div>
-            <Hero title_text={ title } image_url={ imgUrl } desc_text="Wen" />
+            <Hero title_text={ title } image_url={ imgUrl } desc_text={ desc_text } />
             <BlogList  />
         </div>
      );

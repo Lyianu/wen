@@ -27,8 +27,8 @@ const Navbar = ({toggle, site_name, nav}) => {
           { site_name }
           </h1></Link>
         <ul>
-          { !isPending && pages && (pages.map(page => (
-            <li className='p-3 mx-6 border-b' key={page.id}>
+          { !isPending && pages && (pages.map((page, index) => (
+            <li className={ index + 1 === pages.length ? 'p-3 mx-6' : 'p-3 mx-6 border-b'} key={page.id}>
               <Link to={"/page/" + page.id}>{page.title}</Link>
             </li>
           )))
@@ -38,7 +38,7 @@ const Navbar = ({toggle, site_name, nav}) => {
 
       { /* navbar on the top */}
       { /* blur should be applied to parent element so the contents will be blurred too */}
-      <div className={nav ? 'z-10 nav-bar blur-sm fixed top-0 right-0 left-0 ': 'nav-bar fixed top-0 left-0 right-0'}>
+      <div className={nav ? 'z-10 nav-bar blur-sm fixed top-0 right-0 left-0': 'nav-bar fixed top-0 left-0 right-0'}>
 
         <div className="p-8 flex justify-between">
           <Link to="/">

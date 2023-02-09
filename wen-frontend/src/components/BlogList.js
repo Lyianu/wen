@@ -1,5 +1,6 @@
 import useFetch from "../useFetch";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const BlogList = ( { page_num } ) => {
     if (!page_num)
@@ -21,9 +22,9 @@ const BlogList = ( { page_num } ) => {
             {!is_pending && blogs && (
                 <>
                     { is_pending ? "Loading" : (
-                        blogs.map(blog => (
-                            <div className="blog-thumbnail mx-16 my-5 border-b pb-3" key={blog.id}>
-                                <h2 className="blog text-xl">{blog.title}</h2>
+                        blogs.map((blog, index) => (
+                            <div className={index + 1 === blogs.length ? "blog-thumbnail mx-16 my-5 pb-3" : "blog-thumbnail mx-16 my-5 border-b pb-3"} key={blog.id}>
+                                <Link to={"/read/" + blog.id}><h2 className="blog text-xl">{blog.title}</h2></Link>
                                 <p className="desc text-base text-slate-500">{blog.desc === "" ? "This article has no description" : blog.desc}</p>
                             </div>
                         ))
