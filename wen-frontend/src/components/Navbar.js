@@ -20,7 +20,7 @@ const Navbar = ({toggle, site_name, nav}) => {
 
   //console.log(pages)
   return ( 
-    <div>
+    <div className='navbar'>
       {/* Navbar on the left */}
       <div className={nav ? 'z-20 h-screen px-3 fixed left-0 ease-in-out duration-500 border-r-2 bg-gray-100': 'ease-in-out duration-500 h-screen fixed left-[-100%]'}>
         <Link to="/"><h1 className='p-3 font-bold underline underline-offset-4'>
@@ -38,7 +38,7 @@ const Navbar = ({toggle, site_name, nav}) => {
 
       { /* navbar on the top */}
       { /* blur should be applied to parent element so the contents will be blurred too */}
-      <div className={nav ? 'z-10 nav-bar blur-sm fixed top-0 right-0 left-0 ': 'nav-bar fixed top-0  left-0 right-0'}>
+      <div className={nav ? 'z-10 nav-bar blur-sm fixed top-0 right-0 left-0 ': 'nav-bar fixed top-0 left-0 right-0'}>
 
         <div className="p-8 flex justify-between">
           <Link to="/">

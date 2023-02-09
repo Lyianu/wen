@@ -52,6 +52,7 @@ func init() {
 		AddSite("Wen", "/pexels-flo-dahm-529643.jpg", "Lorem")
 		AddAuth("test", "123")
 		AddPage(map[string]interface{}{"title": "About", "content": "Lorem", "desc": "lorem", "created_by": "Wen-authors"})
+		AddPage(map[string]interface{}{"title": "Contact", "content": "Lorem l<h1>ipsum</h1>", "desc": "lorem", "created_by": "Wen-authors"})
 	}
 	//AddAuth("test", "test123")
 }

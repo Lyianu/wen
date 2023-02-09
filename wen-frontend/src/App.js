@@ -29,13 +29,15 @@ export default function App() {
 
     return (
        <Router>
+        <div className='wen flex flex-col h-screen'>
             <Navbar toggle={toggleNav} site_name={ name } nav={nav} />
-            <div className={nav ? "page blur-sm z-0" : "page"} onClick={() => setNav(false)}>
+            <div className={nav ? "page blur-sm z-0 flex-grow" : "page flex-grow"} onClick={() => setNav(false)}>
                 <Routes>
                     <Route exact path="/" element={<Home title={title} imgUrl={imgUrl} />} />
                     <Route path="/page/:id" element={<PageView img_url={imgUrl} />} />
                 </Routes>
                 <Footer title_text={ name } />
+            </div>
             </div>
        </Router>
     )

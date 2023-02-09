@@ -7,3 +7,7 @@ body {
     font-family: 'Poppins', sans-serif;
     height: "100%";
 }
+
+.hero {
+    -webkit-text-stroke: 1px white;
+}
