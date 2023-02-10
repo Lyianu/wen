@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/Lyianu/wen/util"
 )
@@ -14,6 +15,7 @@ type User struct {
 
 func CheckAuth(username, password string) bool {
 	hashed, err := GetHashedPassword(username)
+	fmt.Printf("Validating USER: %q, Pass: %q, Expected: %q", username, password, hashed)
 	if err == nil {
 		return util.ValidatePassword(hashed, password)
 	}
@@ -23,6 +25,7 @@ func CheckAuth(username, password string) bool {
 
 func AddAuth(username, password string) bool {
 	hashed, err := util.HashPassword(password)
+	fmt.Printf("Created USER: %q, Passwd: %q, PasswdHash: %q", username, password, hashed)
 	if err != nil {
 		return false
 	}
@@ -37,7 +40,7 @@ func AddAuth(username, password string) bool {
 
 func GetHashedPassword(username string) (string, error) {
 	var auth User
-	db.Select("id").Where(User{Username: username}).First(&auth)
+	db.Select("id", "password").Where(User{Username: username}).First(&auth)
 	if auth.ID > 0 {
 		return auth.Password, nil
 	}

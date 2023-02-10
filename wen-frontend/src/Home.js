@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import { useState, useEffect } from "react";
 import useFetch from "./useFetch";
+import Login from "./components/Login";
 
 const Home = ({ title, imgUrl, desc_text}) => {
     
@@ -20,6 +21,7 @@ const Home = ({ title, imgUrl, desc_text}) => {
         <div>
             <Hero title_text={ title } image_url={ imgUrl } desc_text={ desc_text } />
             <BlogList  />
+            <Login />
         </div>
      );
 }

@@ -3,7 +3,8 @@
 ## Roadmap
 - Backend based on gin ✅
 - Frontend based on gin
-- Setup page
+- Setup page ✅
+- Login
 - Multi-User support
 - Admin panel
 - Article writing page
