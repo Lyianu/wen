@@ -18,8 +18,6 @@ func InitRouter() *gin.Engine {
 		r.Use(debug.CorsMiddleware())
 	}
 
-	r.POST("/auth", api.GetAuth)
-
 	apiv1 := r.Group("/api/v1")
 	{
 		apiv1.GET("/site", v1.GetSite)
@@ -31,6 +29,8 @@ func InitRouter() *gin.Engine {
 
 		apiv1.GET("/pages/:id", v1.GetPage)
 		apiv1.GET("/pages", v1.GetPages)
+
+		apiv1.POST("/user", api.GetAuth)
 	}
 	apiv1private := apiv1.Group("/")
 	apiv1private.Use(jwt.JWT())

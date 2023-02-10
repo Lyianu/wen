@@ -6,6 +6,7 @@ import PageView from './PageView'
 import BlogView from './BlogView'
 import Navbar from './components/Navbar'
 import useFetch from './useFetch'
+import Setup from './Setup'
 
 export default function App() {
     const [nav, setNav] = useState(false)
@@ -39,6 +40,7 @@ export default function App() {
                     <Route exact path="/" element={<Home title={title} imgUrl={imgUrl} desc_text={desc} />} />
                     <Route path="/page/:id" element={<PageView img_url={imgUrl} />} />
                     <Route path="/read/:id" element={<BlogView img_url={imgUrl} />} />
+                    <Route path="/setup" element={<Setup />} />
                 </Routes>
                 <Footer title_text={ name } />
             </div>

@@ -8,6 +8,7 @@ require (
 	github.com/go-ini/ini v1.67.0
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/unknwon/com v1.0.1
+	golang.org/x/crypto v0.6.0
 	gorm.io/driver/sqlite v1.4.4
 	gorm.io/gorm v1.24.5
 )
@@ -29,10 +30,9 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
 	github.com/ugorji/go/codec v1.2.9 // indirect
-	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
-	golang.org/x/net v0.4.0 // indirect
-	golang.org/x/sys v0.3.0 // indirect
-	golang.org/x/text v0.5.0 // indirect
+	golang.org/x/net v0.6.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
