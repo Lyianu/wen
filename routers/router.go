@@ -20,6 +20,7 @@ func InitRouter() *gin.Engine {
 	apiv1 := r.Group("/api/v1")
 	{
 		apiv1.GET("/site", v1.GetSite)
+		apiv1.POST("/site", v1.AddSite)
 
 		apiv1.GET("/tags", v1.GetTags)
 

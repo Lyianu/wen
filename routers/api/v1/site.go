@@ -12,7 +12,21 @@ func GetSite(c *gin.Context) {
 }
 
 // AddSite setup the website for the first time, if it has been setup before,
-// shows a 404 page
+// shows a Bad Request message
 func AddSite(c *gin.Context) {
+	var site struct {
+		models.Site
+		Username string `json:"user"`
+		Password string `json:"pass"`
+	}
+	if models.Wen.Name != "" || c.BindJSON(&site) != nil {
+		c.String(http.StatusBadRequest, "Bad request")
+	}
+
+	models.AddSite(site.Name, site.SiteImageURL, site.BgTitle, site.Desc)
+	models.AddAuth(site.Username, site.Password)
+}
+
+func EditSite(c *gin.Context) {
 
 }
