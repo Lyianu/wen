@@ -1,4 +1,4 @@
-package api
+package v1
 
 import (
 	"log"
@@ -16,6 +16,7 @@ type auth struct {
 	Password string `valid:"Required; MaxSize(50)" json:"password"`
 }
 
+// Login
 func GetAuth(c *gin.Context) {
 	a := auth{}
 	data := make(map[string]interface{})
@@ -48,6 +49,35 @@ func GetAuth(c *gin.Context) {
 		}
 	}
 
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
+	})
+}
+
+// Register
+func AddAuth(c *gin.Context) {
+	a := auth{}
+	err := c.BindJSON(a)
+	code := e.INVALID_PARAMS
+
+	if err != nil {
+		log.Println(err)
+		util.BadRequest(c, http.StatusBadRequest)
+	}
+
+	valid := validation.Validation{}
+	if ok, _ := valid.Valid(&a); ok {
+		_, err := models.GetHashedPassword(a.Username)
+		if err.Error() == "USER_NOT_EXISTS" {
+			code = e.SUCCESS
+			models.AddAuth(a.Username, a.Password)
+		} else {
+			code = e.ERROR_EXIST_USERNAME
+		}
+	}
+	data := make(map[string]interface{})
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
 		"msg":  e.GetMsg(code),

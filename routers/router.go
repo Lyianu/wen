@@ -4,7 +4,6 @@ import (
 	"github.com/Lyianu/wen/middleware/debug"
 	"github.com/Lyianu/wen/middleware/jwt"
 	"github.com/Lyianu/wen/pkg/setting"
-	"github.com/Lyianu/wen/routers/api"
 	v1 "github.com/Lyianu/wen/routers/api/v1"
 	"github.com/gin-gonic/gin"
 )
@@ -30,7 +29,8 @@ func InitRouter() *gin.Engine {
 		apiv1.GET("/pages/:id", v1.GetPage)
 		apiv1.GET("/pages", v1.GetPages)
 
-		apiv1.POST("/user", api.GetAuth)
+		apiv1.POST("/user", v1.GetAuth)
+		apiv1.POST("/user/register", v1.AddAuth)
 	}
 	apiv1private := apiv1.Group("/")
 	apiv1private.Use(jwt.JWT())
