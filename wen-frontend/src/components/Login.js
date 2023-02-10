@@ -1,9 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const [cookie, setCookie] = useCookies("token")
+
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -15,8 +19,12 @@ const Login = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)
         }).then((data) => {
-            console.log(data.json())
-            //navigate('/');
+            return data.json()
+        }).then((result) => {
+            if (result.code === 200) {
+                setCookie("token", result.data.token, { path: "/" })
+                navigate('/')
+            }
         })
     }
 
