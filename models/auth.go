@@ -1,6 +1,10 @@
 package models
 
-import "errors"
+import (
+	"errors"
+
+	"github.com/Lyianu/wen/util"
+)
 
 type User struct {
 	ID       uint   `gorm:"primaryKey" json:"id"`
@@ -9,20 +13,23 @@ type User struct {
 }
 
 func CheckAuth(username, password string) bool {
-	var auth User
-	db.Select("id").Where(User{Username: username, Password: password}).First(&auth)
-	if auth.ID > 0 {
-		return true
+	hashed, err := GetHashedPassword(username)
+	if err == nil {
+		return util.ValidatePassword(hashed, password)
 	}
 
 	return false
 }
 
 func AddAuth(username, password string) bool {
+	hashed, err := util.HashPassword(password)
+	if err != nil {
+		return false
+	}
 	if !CheckAuth(username, password) {
 		db.Create(&User{
 			Username: username,
-			Password: password,
+			Password: hashed,
 		})
 	}
 	return true
