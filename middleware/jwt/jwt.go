@@ -14,10 +14,12 @@ func JWT() gin.HandlerFunc {
 		var code int
 		var data interface{}
 
-		token := c.Query("token")
-		if token == "" {
+		hToken := c.Request.Header.Get("Authorization")
+
+		if hToken == "" || len(hToken) < 8 {
 			code = e.INVALID_PARAMS
 		} else {
+			token := hToken[7:]
 			code = e.SUCCESS
 			claims, err := util.ParseToken(token)
 			if err != nil {

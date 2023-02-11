@@ -36,17 +36,17 @@ func InitRouter() *gin.Engine {
 	apiv1private := apiv1.Group("/")
 	apiv1private.Use(jwt.JWT())
 	{
-		apiv1.POST("/tags", v1.AddTag)
-		apiv1.PUT("/tags/:id", v1.EditTag)
-		apiv1.DELETE("/tags/:id", v1.DeleteTag)
+		apiv1private.POST("/tags", v1.AddTag)
+		apiv1private.PUT("/tags/:id", v1.EditTag)
+		apiv1private.DELETE("/tags/:id", v1.DeleteTag)
 
-		apiv1.POST("/articles", v1.AddArticle)
-		apiv1.PUT("/articles/:id", v1.EditArticle)
-		apiv1.DELETE("/articles/:id", v1.DeleteArticle)
+		apiv1private.POST("/articles", v1.AddArticle)
+		apiv1private.PUT("/articles/:id", v1.EditArticle)
+		apiv1private.DELETE("/articles/:id", v1.DeleteArticle)
 
-		apiv1.POST("/pages", v1.AddPage)
-		apiv1.PUT("/pages", v1.EditPage)
-		apiv1.DELETE("/pages/:id", v1.DeletePage)
+		apiv1private.POST("/pages", v1.AddPage)
+		apiv1private.PUT("/pages", v1.EditPage)
+		apiv1private.DELETE("/pages/:id", v1.DeletePage)
 	}
 
 	return r

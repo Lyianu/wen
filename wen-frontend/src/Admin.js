@@ -14,7 +14,7 @@ const Admin = () => {
 
     return ( 
         <div className="admin">
-            <div className="top-con">
+            <div className="top-con pt-24 pb-8 px-16 border-b">
                 <Link to='/write'>
                         <button class='rounded-full'>Write</button>
                 </Link> 
