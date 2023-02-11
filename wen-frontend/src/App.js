@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import useFetch from './useFetch'
 import Setup from './Setup'
 import Login from './components/Login'
+import NotFound from './components/NotFound'
 
 export default function App() {
     const [nav, setNav] = useState(false)
@@ -43,6 +44,8 @@ export default function App() {
                     <Route path="/read/:id" element={<BlogView img_url={imgUrl} />} />
                     <Route path="/setup" element={<Setup />} />
                     <Route path="/login" element={<Login />} />
+
+                    <Route path='*' element={ <NotFound /> } />
                 </Routes>
                 <Footer title_text={ name } />
             </div>
