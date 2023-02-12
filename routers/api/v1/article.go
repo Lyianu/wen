@@ -42,6 +42,7 @@ func GetArticle(c *gin.Context) {
 func AddArticle(c *gin.Context) {
 	var article models.Article
 	err := c.BindJSON(&article)
+	article.CreatedBy = c.GetString("username")
 
 	valid := validation.Validation{}
 	// might change to tag names in the future

@@ -22,6 +22,9 @@ func JWT() gin.HandlerFunc {
 			token := hToken[7:]
 			code = e.SUCCESS
 			claims, err := util.ParseToken(token)
+			if err == nil {
+				c.Set("username", claims.Username)
+			}
 			if err != nil {
 				code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
 			} else if time.Now().Unix() > claims.ExpiresAt {
