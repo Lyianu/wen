@@ -1,12 +1,11 @@
-const PutAuth = (url, postdata, cookie) => {
+const DeleteAuth = (url, cookie) => {
     fetch(url, {
-            method: "PUT",
+            method: "DELETE",
             headers: new Headers({
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + cookie.token,
-            }),
-            body: JSON.stringify(postdata)
+            })
         }).then((data) => data.json())
 }
 
-export default PutAuth;
+export default DeleteAuth;

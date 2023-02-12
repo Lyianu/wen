@@ -26,8 +26,8 @@ const Home = ({ title, imgUrl, desc_text}) => {
         let targetPage = page + offset;
         if (targetPage < 1)
             targetPage = 1;
-        if (targetPage > Math.trunc(total / 10 + 1))
-            targetPage = Math.trunc(total / 10 + 1);
+        if (targetPage > Math.trunc((total - 1) / 10 + 1))
+            targetPage = Math.trunc((total - 1) / 10 + 1);
         setPage(targetPage)
     }
 

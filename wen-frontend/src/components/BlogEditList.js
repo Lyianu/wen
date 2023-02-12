@@ -1,16 +1,20 @@
 import useFetch from "../useFetch";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import DeleteAuth from "../DeleteAuth";
+import { useCookies } from "react-cookie";
 
 const BlogEditList = ( { page_num } ) => {
     if (!page_num)
         page_num = 1;
 
-    const [blogs, setBlogs] = useState(null)
-    const [is_pending, setIs_pending] = useState(true)
-    const {data, isPending} = useFetch("http://127.0.0.1:8000/api/v1/articles?page=" + page_num)
+    const [blogs, setBlogs] = useState(null);
+    const [is_pending, setIs_pending] = useState(true);
+    const {data, isPending} = useFetch("http://127.0.0.1:8000/api/v1/articles?page=" + page_num);
 
+    const navigate = useNavigate();
+    const [cookie] = useCookies("token");
     useEffect(() => {
         if (data) {
             setBlogs(data.data.lists)
@@ -19,7 +23,8 @@ const BlogEditList = ( { page_num } ) => {
     }, [data])
 
     const deleteArticle = (id) => {
-        
+        DeleteAuth("http://localhost:8000/api/v1/articles/" + id, cookie);
+        navigate("/");
     }
 
     return ( 
@@ -37,7 +42,7 @@ const BlogEditList = ( { page_num } ) => {
                                 </div>
                                 <div className="article-options">
                                     <button className="rounded-full border py-3 px-7 mx-1">EDIT</button>
-                                    <Modal text="are you sure you really want to delete this article?" name="DELETE" title="Delete Article" yes="DELETE" />
+                                    <Modal text="are you sure you really want to delete this article?" name="DELETE" title="Delete Article" yes="DELETE" click={() => deleteArticle(blog.id)} />
                                 </div>
                             </div>
                         ))
