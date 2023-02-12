@@ -2,16 +2,20 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import PostAuth from "../PostAuth";
 
-const Writer = ( {_title, _content }) => {
+const Writer = ( {_title, _content, _endpoint }) => {
     const [title, setTitle] = useState(_title ? _title : "");
     const [content, setContent] = useState(_content ? _content : "");
 
     const [cookie] = useCookies("token")
 
+    if (!_endpoint) {
+        _endpoint = "http://localhost:8000/api/v1/articles";
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()     
             
-        PostAuth("http://localhost:8000/api/v1/articles", {
+        PostAuth(_endpoint, {
             "title": title,
             "content": content
         }, cookie) 
@@ -28,8 +32,8 @@ const Writer = ( {_title, _content }) => {
                     onChange={(e) => setTitle(e.target.value)}
                     required
                 />
-                <input 
-                    className="rounded-sm border border-black h-[80%] mx-10 my-3"
+                <textarea
+                    className="rounded-sm border border-black h-[80%] mx-10 my-3 p-2"
                     type="text"
                     value={ content }
                     onChange={(e) => setContent(e.target.value)}
