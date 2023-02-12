@@ -1,7 +1,7 @@
 import Home from './Home'
 import Footer from './components/Footer'
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import PageView from './PageView'
 import BlogView from './BlogView'
 import Navbar from './components/Navbar'
@@ -24,7 +24,7 @@ export default function App() {
     }
 
 
-    const { data, isPending } = useFetch("http://localhost:8000/api/v1/site")
+    const { data, isPending } = useFetch("/api/v1/site")
 
     useEffect(() => {
         if (data) {

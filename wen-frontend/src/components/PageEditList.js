@@ -23,7 +23,7 @@ const PageEditList = ( { page_num } ) => {
     }, [data])
 
     const deletePage = (id) => {
-        DeleteAuth("http://localhost:8000/api/v1/pages/" + id, cookie);
+        DeleteAuth("/api/v1/pages/" + id, cookie);
         navigate("/");
     }
 

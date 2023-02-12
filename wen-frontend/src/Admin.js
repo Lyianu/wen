@@ -23,7 +23,7 @@ const Admin = () => {
             navigate("/login")
     }, [])
 
-    const {data} = useFetch("http://localhost:8000/api/v1/articles")
+    const {data} = useFetch("/api/v1/articles")
 
     useEffect(() => {
         if (data) {
@@ -60,7 +60,7 @@ const Admin = () => {
             { mode === "writepage" && (
                 <>
                     <h1 className="text-2xl px-10 pt-3">Add a page</h1>
-                    <Writer _endpoint="http://localhost:8000/api/v1/pages" />
+                    <Writer _endpoint="/api/v1/pages" />
                 </>
             )}
 

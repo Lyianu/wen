@@ -16,7 +16,7 @@ const SiteSetting = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        PutAuth("http://localhost:8000/api/v1/site", {
+        PutAuth("/api/v1/site", {
             "name": name,
             "bg_title": bg_title,
             "desc": desc,
@@ -27,7 +27,7 @@ const SiteSetting = () => {
         //console.log(image_url, name, bg_title, desc)
     }
 
-    const {data, isPending} = useFetch("http://localhost:8000/api/v1/site")
+    const {data, isPending} = useFetch("/api/v1/site")
     useEffect(() => {
         if (data) {
             setBg_title(data.bg_title);

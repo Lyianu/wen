@@ -14,7 +14,7 @@ const Login = () => {
         e.preventDefault();
         const user = { username, password };
 
-        fetch('http://localhost:8000/api/v1/user', {
+        fetch('/api/v1/user', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)

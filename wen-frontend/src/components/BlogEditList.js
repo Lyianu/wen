@@ -23,7 +23,7 @@ const BlogEditList = ( { page_num } ) => {
     }, [data])
 
     const deleteArticle = (id) => {
-        DeleteAuth("http://localhost:8000/api/v1/articles/" + id, cookie);
+        DeleteAuth("/api/v1/articles/" + id, cookie);
         navigate("/");
     }
 

@@ -9,7 +9,7 @@ const Setup = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://localhost:8000/api/v1/site")
+        fetch("/api/v1/site")
         .then((data) => data.json())
         .then((data) => {
             if(data.name !== "")
@@ -22,7 +22,7 @@ const Setup = () => {
         e.preventDefault();
         const settings = { name, desc, user, pass };
 
-        fetch('http://localhost:8000/api/v1/site', {
+        fetch('/api/v1/site', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(settings)

@@ -12,7 +12,7 @@ const Navbar = ({toggle, site_name, nav}) => {
   }
 
 
-  const {data, isPending} = useFetch("http://localhost:8000/api/v1/pages")
+  const {data, isPending} = useFetch("/api/v1/pages")
   
   useEffect(() => {
     setPages(data && data.data.lists)

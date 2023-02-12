@@ -17,7 +17,7 @@ const Writer = ( {_title, _content, _endpoint, _func }) => {
     }, [_title, _content]);
 
     if (!_endpoint) {
-        _endpoint = "http://localhost:8000/api/v1/articles";
+        _endpoint = "/api/v1/articles";
     }
 
     if (!_func) {

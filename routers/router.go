@@ -5,6 +5,7 @@ import (
 	"github.com/Lyianu/wen/middleware/jwt"
 	"github.com/Lyianu/wen/pkg/setting"
 	v1 "github.com/Lyianu/wen/routers/api/v1"
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,6 +17,11 @@ func InitRouter() *gin.Engine {
 	if setting.RunMode == "debug" {
 		r.Use(debug.CorsMiddleware())
 	}
+
+	r.Use(static.Serve("/", static.LocalFile("frontend", true)))
+	r.NoRoute(func(c *gin.Context) {
+		c.File("./frontend/index.html")
+	})
 
 	apiv1 := r.Group("/api/v1")
 	{

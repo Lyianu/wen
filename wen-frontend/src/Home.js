@@ -14,7 +14,7 @@ const Home = ({ title, imgUrl, desc_text}) => {
         setNav(!nav)
     }
 
-    const {data} = useFetch("http://localhost:8000/api/v1/articles")
+    const {data} = useFetch("/api/v1/articles")
 
     useEffect(() => {
         if (data) {

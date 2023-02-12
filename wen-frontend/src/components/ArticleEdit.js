@@ -12,7 +12,7 @@ const ArticleEdit = () => {
     const [cookie] = useCookies();
     useEffect(() => {
         if (id) 
-            fetch("http://localhost:8000/api/v1/articles/" + id + "/md", {
+            fetch("/api/v1/articles/" + id + "/md", {
                 headers: new Headers({
                     "Authorization": "Bearer " + cookie.token
                 })
@@ -28,7 +28,7 @@ const ArticleEdit = () => {
     return ( 
         <div className="writer p-24">
             <h1 className="text-2xl">Editing Article: {title}</h1>
-            <Writer _title={title} _content={content} _endpoint={"http://localhost:8000/api/v1/articles/" + id} _func={PutAuth} />
+            <Writer _title={title} _content={content} _endpoint={"/api/v1/articles/" + id} _func={PutAuth} />
         </div>
      );
 }
