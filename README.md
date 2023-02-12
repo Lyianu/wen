@@ -2,7 +2,7 @@
 
 ## Roadmap
 - Backend based on gin ✅
-- Frontend based on gin
+- Frontend based on react
 - Setup page ✅
 - Login ✅
 - Multi-User support
@@ -13,3 +13,4 @@
 - File/Image upload and online management
 - *Mail notification
 - Comment
+- Dark Mode
