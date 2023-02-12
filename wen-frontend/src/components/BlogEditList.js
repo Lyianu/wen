@@ -1,6 +1,7 @@
 import useFetch from "../useFetch";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 const BlogEditList = ( { page_num } ) => {
     if (!page_num)
@@ -17,6 +18,10 @@ const BlogEditList = ( { page_num } ) => {
         }
     }, [data])
 
+    const deleteArticle = (id) => {
+        
+    }
+
     return ( 
         <div className="-z-10 mx-3 blog">
             {!is_pending && blogs && (
@@ -32,7 +37,7 @@ const BlogEditList = ( { page_num } ) => {
                                 </div>
                                 <div className="article-options">
                                     <button className="rounded-full border py-3 px-7 mx-1">EDIT</button>
-                                    <button className="rounded-full border py-3 px-7 mx-1">DELETE</button>
+                                    <Modal text="are you sure you really want to delete this article?" name="DELETE" title="Delete Article" yes="DELETE" />
                                 </div>
                             </div>
                         ))
