@@ -7,7 +7,8 @@
 - Login ✅
 - Multi-User support
 - Admin panel
-- Article writing page
+- Article writing page ✅
+- Article management
 - Article/Page Visibility
 - File/Image upload and online management
 - *Mail notification
