@@ -10,6 +10,8 @@ const SiteSetting = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        
+
         console.log(image_url, name, bg_title, desc)
     }
 

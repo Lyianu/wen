@@ -47,6 +47,8 @@ func InitRouter() *gin.Engine {
 		apiv1private.POST("/pages", v1.AddPage)
 		apiv1private.PUT("/pages", v1.EditPage)
 		apiv1private.DELETE("/pages/:id", v1.DeletePage)
+
+		apiv1private.PUT("/site", v1.EditSite)
 	}
 
 	return r
