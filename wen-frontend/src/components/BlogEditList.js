@@ -34,14 +34,14 @@ const BlogEditList = ( { page_num } ) => {
                     { is_pending ? "Loading" : (
                         blogs.map((blog, index) => (
                             <div className={index + 1 === blogs.length ? "blog-thumbnail mx-16 my-5 pb-3 flex flex-row justify-around" : "blog-thumbnail mx-16 my-5 border-b pb-3 flex flex-row justify-around"} key={blog.id}>
-                                <div classname="article-preview">
+                                <div className="article-preview">
                                     <div className="preview">
                                         <Link to={"/read/" + blog.id}><h2 className="blog text-xl">{blog.title}</h2></Link>
                                         <p className="desc text-base text-slate-500">{blog.desc === "" ? "This article has no description" : blog.desc}</p>
                                     </div>
                                 </div>
                                 <div className="article-options">
-                                    <button className="rounded-full border py-3 px-7 mx-1">EDIT</button>
+                                    <Link to={"/edit/" + blog.id}><button className="rounded-full border py-3 px-7 mx-1">EDIT</button></Link>
                                     <Modal text="are you sure you really want to delete this article?" name="DELETE" title="Delete Article" yes="DELETE" click={() => deleteArticle(blog.id)} />
                                 </div>
                             </div>

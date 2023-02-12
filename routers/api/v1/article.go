@@ -164,9 +164,17 @@ func EditArticle(c *gin.Context) {
 		ModifiedBy string `json:"modified_by"`
 		State      string `json:"state"`
 	}
+	c.BindJSON(&data)
+	if data.ModifiedBy == "" {
+		data.ModifiedBy = c.GetString("username")
+	}
 	id := com.StrTo(c.Param("id")).MustInt()
 
-	valid.Range(data.State, 0, 1, "state").Message("State must be 0 or 1")
+	var state int = 0
+	if data.State != "" {
+		state = com.StrTo(data.State).MustInt()
+	}
+	valid.Range(state, 0, 1, "state").Message("State must be 0 or 1")
 	valid.Min(id, 1, "id").Message("ID must be positive")
 	valid.MaxSize(data.Title, 100, "title").Message("Title length must not exceed 100")
 	valid.MaxSize(data.Desc, 255, "desc").Message("Description length must not exceed 255")

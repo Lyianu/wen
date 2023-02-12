@@ -10,6 +10,7 @@ import Setup from './Setup'
 import Login from './components/Login'
 import NotFound from './components/NotFound'
 import Admin from './Admin'
+import ArticleEdit from './components/ArticleEdit'
 
 export default function App() {
     const [nav, setNav] = useState(false)
@@ -46,6 +47,7 @@ export default function App() {
                     <Route path="/setup" element={<Setup />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin" element={<Admin />} />
+                    <Route path="/edit/:id" element={<ArticleEdit />} />
 
                     <Route path='*' element={ <NotFound /> } />
                 </Routes>

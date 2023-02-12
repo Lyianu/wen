@@ -2,20 +2,26 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import PostAuth from "../PostAuth";
 
-const Writer = ( {_title, _content, _endpoint }) => {
+const Writer = ( {_title, _content, _endpoint, _func }) => {
     const [title, setTitle] = useState(_title ? _title : "");
     const [content, setContent] = useState(_content ? _content : "");
 
     const [cookie] = useCookies("token")
 
+    console.log(_title, _content);
+
     if (!_endpoint) {
         _endpoint = "http://localhost:8000/api/v1/articles";
+    }
+
+    if (!_func) {
+        _func = PostAuth;
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()     
             
-        PostAuth(_endpoint, {
+        _func(_endpoint, {
             "title": title,
             "content": content
         }, cookie) 
