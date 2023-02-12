@@ -38,7 +38,7 @@ const Home = ({ title, imgUrl, desc_text}) => {
         <div>
             <Hero title_text={ title } image_url={ imgUrl } desc_text={ desc_text } />
             <BlogList page_num={page}  />
-            <Pagination change={changePage} page_num={page} total={total} />
+            {total > 10 && <Pagination change={changePage} page_num={page} total={total} />}
         </div>
      );
 }

@@ -58,7 +58,7 @@ const Admin = () => {
                 <>
                     <h1 className="text-2xl px-10 pt-3">Manage Articles</h1>
                     <BlogEditList page_num={page} />
-                    <Pagination total={total} page_num={page} change={changePage} />
+                    {total > 10 && <Pagination total={total} page_num={page} change={changePage} />}
                 </>
             )}
 

@@ -25,7 +25,7 @@ func GetArticleTotal(maps interface{}) int {
 }
 
 func GetArticles(pageNum int, pageSize int, maps interface{}) (articles []Article) {
-	db.Preload("Tags").Where(maps).Offset(pageNum).Limit(pageSize).Find(&articles)
+	db.Preload("Tags").Where(maps).Order("id DESC").Offset(pageNum).Limit(pageSize).Find(&articles)
 	for _, v := range articles {
 		v.Content = ""
 	}

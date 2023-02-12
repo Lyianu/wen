@@ -23,7 +23,7 @@ const Login = () => {
         }).then((result) => {
             if (result.code === 200) {
                 setCookie("token", result.data.token, { path: "/" })
-                navigate('/')
+                navigate('/admin')
             }
         })
     }
