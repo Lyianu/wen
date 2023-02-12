@@ -102,12 +102,14 @@ func AddPage(c *gin.Context) {
 		util.BadRequest(c, code)
 		return
 	}
+	p.State = 0
+	p.CreatedBy = c.GetString("username")
 	valid := validation.Validation{}
 	valid.MaxSize(p.Title, 100, "title").Message("Title must be shorter than 100")
 	valid.MaxSize(p.Content, 65535, "content").Message("Content max length exceed")
 	valid.Required(p.Title, "title").Message("Title must not be null")
 	valid.Required(p.CreatedBy, "created_by").Message("Created_by must not be null")
-	valid.Range(p.State, 0, 1, "state").Message("State must be 0 or 1")
+	//valid.Range(state, 0, 1, "state").Message("State must be 0 or 1")
 
 	data := make(map[string]interface{})
 	if !valid.HasErrors() {
@@ -120,6 +122,8 @@ func AddPage(c *gin.Context) {
 		data["state"] = p.State
 
 		models.AddPage(data)
+	} else {
+		util.BadRequest(c, http.StatusBadRequest)
 	}
 
 	c.JSON(http.StatusCreated, gin.H{

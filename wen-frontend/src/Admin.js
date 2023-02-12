@@ -44,15 +44,23 @@ const Admin = () => {
     return ( 
         <div className="admin">
             <div className="top-con pt-24 pb-8 px-16 border-b justify-items-stretch">
-                <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("write")}>Write</button>
+                <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("writearticle")}>Add Article</button>
+                <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("writepage")}>Add Page</button>
                 <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("articles")}>Articles</button>
                 <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("site")}>Site</button>
                 <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("pages")}>Pages</button>
             </div>
-            { mode === "write" && (
+            { mode === "writearticle" && (
                 <>
                     <h1 className="text-2xl px-10 pt-3">Add a post</h1>
                     <Writer />
+                </>
+            )}
+
+            { mode === "writepage" && (
+                <>
+                    <h1 className="text-2xl px-10 pt-3">Add a page</h1>
+                    <Writer _endpoint="http://localhost:8000/api/v1/pages" />
                 </>
             )}
 
