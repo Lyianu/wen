@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Setup = () => {
@@ -7,6 +7,16 @@ const Setup = () => {
     const [user, setUser] = useState("admin");
     const [pass, setPass] = useState("");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetch("http://localhost:8000/api/v1/site")
+        .then((data) => data.json())
+        .then((data) => {
+            if(data.name !== "")
+                navigate("/404")
+                
+        });
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
