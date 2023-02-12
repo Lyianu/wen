@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import PostAuth from "../PostAuth";
 
@@ -9,6 +9,10 @@ const Writer = ( {_title, _content, _endpoint, _func }) => {
     const [cookie] = useCookies("token")
 
     console.log(_title, _content);
+    useEffect(() => {
+        setTitle(_title);
+        setContent(_content);
+    }, [_title, _content]);
 
     if (!_endpoint) {
         _endpoint = "http://localhost:8000/api/v1/articles";
