@@ -49,6 +49,9 @@ func GetPage(id int) (page Page) {
 
 func GetPages(maps interface{}) (pages []Page) {
 	db.Where(maps).Find(&pages)
+	for _, page := range pages {
+		page.Content = ""
+	}
 
 	return
 }
