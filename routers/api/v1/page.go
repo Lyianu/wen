@@ -8,6 +8,7 @@ import (
 	"github.com/Lyianu/wen/util"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
+	"github.com/gomarkdown/markdown"
 	"github.com/unknwon/com"
 )
 
@@ -67,6 +68,32 @@ func GetPage(c *gin.Context) {
 	})
 }
 
+func GetPageHTML(c *gin.Context) {
+	id := com.StrTo(c.Param("id")).MustInt()
+	valid := validation.Validation{}
+
+	valid.Min(id, 1, "id").Message("ID must be positive")
+	code := e.INVALID_PARAMS
+	var page models.Page
+	if !valid.HasErrors() {
+		if models.ExistPageByID(id) {
+			page = models.GetPage(id)
+			page.Content = string(markdown.ToHTML([]byte(page.Content), nil, nil))
+			code = e.SUCCESS
+		} else {
+			code = e.ERROR_NOT_EXIST_PAGE
+		}
+	} else {
+		util.LogValidationErrors(valid)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": page,
+	})
+}
+
 func AddPage(c *gin.Context) {
 	var p models.Page
 	err := c.BindJSON(&p)
@@ -110,9 +137,19 @@ func EditPage(c *gin.Context) {
 		ModifiedBy string `json:"modified_by"`
 		State      string `json:"state"`
 	}
+	c.BindJSON(&data)
+	var state = 0
+	if data.State != "" {
+		state = com.StrTo(data.State).MustInt()
+	}
+
+	if data.ModifiedBy == "" {
+		data.ModifiedBy = c.GetString("username")
+	}
+
 	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
-	valid.Range(data.State, 0, 1, "state").Message("State must be 0 or 1")
+	valid.Range(state, 0, 1, "state").Message("State must be 0 or 1")
 	valid.Min(id, 1, "id").Message("ID must be positive")
 	valid.MaxSize(data.Title, 100, "title").Message("Title length must not exceed 100")
 	valid.MaxSize(data.Desc, 255, "desc").Message("Description length must not exceed 255")
@@ -135,7 +172,7 @@ func EditPage(c *gin.Context) {
 			}
 			d["modified_by"] = data.ModifiedBy
 
-			models.EditArticle(id, d)
+			models.EditPage(id, d)
 			code = e.SUCCESS
 		} else {
 			code = e.ERROR_NOT_EXIST_PAGE
@@ -144,7 +181,7 @@ func EditPage(c *gin.Context) {
 		util.LogValidationErrors(valid)
 	}
 
-	c.JSON(http.StatusNoContent, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"code": code,
 		"msg":  e.GetMsg(code),
 		"data": make(map[string]interface{}),

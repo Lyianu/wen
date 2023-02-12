@@ -103,11 +103,13 @@ func AddArticle(c *gin.Context) {
 			log.Printf("err.key: %s, err.message: %s\n", err.Key, err.Message)
 		}
 	}
+	data := make(map[string]interface{})
+	data["id"] = models.GetArticleTotal(map[string]interface{}{})
 
 	c.JSON(http.StatusCreated, gin.H{
 		"code": code,
 		"msg":  e.GetMsg(code),
-		"data": make(map[string]interface{}),
+		"data": data,
 	})
 }
 

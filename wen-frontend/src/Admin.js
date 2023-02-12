@@ -8,6 +8,7 @@ import Pagination from "./components/Pagination";
 import SiteSetting from "./components/SiteSetting";
 import Writer from "./components/Writer";
 import BlogEditList from "./components/BlogEditList";
+import PageEditList from "./components/PageEditList";
 
 const Admin = () => {
     const [page, setPage] = useState(1)
@@ -46,6 +47,7 @@ const Admin = () => {
                 <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("write")}>Write</button>
                 <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("articles")}>Articles</button>
                 <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("site")}>Site</button>
+                <button className='rounded-full border p-3 hover:bg-black hover:text-white' onClick={() => setMode("pages")}>Pages</button>
             </div>
             { mode === "write" && (
                 <>
@@ -66,6 +68,13 @@ const Admin = () => {
                 <>
                     <h1 className="text-2xl px-10 pt-3">Site settings</h1>
                     <SiteSetting />
+                </>
+            )}
+
+            { mode === "pages" && (
+                <>
+                    <h1 className="text-2xl px-10 pt-3">Manage Pages</h1>
+                    <PageEditList />
                 </>
             )}
         </div>

@@ -27,7 +27,7 @@ func InitRouter() *gin.Engine {
 		apiv1.GET("/articles", v1.GetArticles)
 		apiv1.GET("/articles/:id", v1.GetArticleHTML)
 
-		apiv1.GET("/pages/:id", v1.GetPage)
+		apiv1.GET("/pages/:id", v1.GetPageHTML)
 		apiv1.GET("/pages", v1.GetPages)
 
 		apiv1.POST("/user", v1.GetAuth)
@@ -45,8 +45,9 @@ func InitRouter() *gin.Engine {
 		apiv1private.PUT("/articles/:id", v1.EditArticle)
 		apiv1private.DELETE("/articles/:id", v1.DeleteArticle)
 
+		apiv1private.GET("/pages/:id/md", v1.GetPage)
 		apiv1private.POST("/pages", v1.AddPage)
-		apiv1private.PUT("/pages", v1.EditPage)
+		apiv1private.PUT("/pages/:id", v1.EditPage)
 		apiv1private.DELETE("/pages/:id", v1.DeletePage)
 
 		apiv1private.PUT("/site", v1.EditSite)

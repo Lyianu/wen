@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import PostAuth from "../PostAuth";
 
 const Writer = ( {_title, _content, _endpoint, _func }) => {
@@ -8,7 +9,8 @@ const Writer = ( {_title, _content, _endpoint, _func }) => {
 
     const [cookie] = useCookies("token")
 
-    console.log(_title, _content);
+    const navigate = useNavigate()
+
     useEffect(() => {
         setTitle(_title);
         setContent(_content);
@@ -29,6 +31,8 @@ const Writer = ( {_title, _content, _endpoint, _func }) => {
             "title": title,
             "content": content
         }, cookie) 
+
+        navigate("/")
     }
 
 

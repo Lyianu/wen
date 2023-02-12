@@ -11,6 +11,7 @@ import Login from './components/Login'
 import NotFound from './components/NotFound'
 import Admin from './Admin'
 import ArticleEdit from './components/ArticleEdit'
+import PageEdit from './components/PageEdit'
 
 export default function App() {
     const [nav, setNav] = useState(false)
@@ -48,6 +49,7 @@ export default function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/edit/:id" element={<ArticleEdit />} />
+                    <Route path="/editpage/:id" element={<PageEdit />} />
 
                     <Route path='*' element={ <NotFound /> } />
                 </Routes>
