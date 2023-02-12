@@ -25,7 +25,7 @@ func InitRouter() *gin.Engine {
 		apiv1.GET("/tags", v1.GetTags)
 
 		apiv1.GET("/articles", v1.GetArticles)
-		apiv1.GET("/articles/:id", v1.GetArticle)
+		apiv1.GET("/articles/:id", v1.GetArticleHTML)
 
 		apiv1.GET("/pages/:id", v1.GetPage)
 		apiv1.GET("/pages", v1.GetPages)

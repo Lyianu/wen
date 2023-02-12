@@ -10,10 +10,11 @@ import (
 	"github.com/Lyianu/wen/util"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
+	"github.com/gomarkdown/markdown"
 	"github.com/unknwon/com"
 )
 
-// GetArticle returns desired article specified by id
+// GetArticle returns desired article(in markdown) specified by id
 func GetArticle(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
@@ -24,6 +25,32 @@ func GetArticle(c *gin.Context) {
 	if !valid.HasErrors() {
 		if models.ExistArticleByID(id) {
 			data = models.GetArticle(id)
+			code = e.SUCCESS
+		} else {
+			code = e.ERROR_NOT_EXIST_ARTICLE
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
+	})
+}
+
+// GetArticleHTML returns desired article(in HTML) specified by id
+func GetArticleHTML(c *gin.Context) {
+	id := com.StrTo(c.Param("id")).MustInt()
+	valid := validation.Validation{}
+	valid.Min(id, 1, "id").Message("ID must be positive")
+
+	code := e.INVALID_PARAMS
+	var data interface{}
+	if !valid.HasErrors() {
+		if models.ExistArticleByID(id) {
+			a := models.GetArticle(id)
+			a.Content = string(markdown.ToHTML([]byte(a.Content), nil, nil))
+			data = a
+
 			code = e.SUCCESS
 		} else {
 			code = e.ERROR_NOT_EXIST_ARTICLE
