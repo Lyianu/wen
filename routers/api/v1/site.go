@@ -25,7 +25,7 @@ func AddSite(c *gin.Context) {
 		c.String(http.StatusBadRequest, "Bad request")
 	}
 
-	models.AddSite(site.Name, site.SiteImageURL, site.BgTitle, site.Desc)
+	models.AddSite(site.Name, site.ImageURL, site.BgTitle, site.Desc)
 	models.AddAuth(site.Username, site.Password)
 }
 
@@ -40,10 +40,10 @@ func EditSite(c *gin.Context) {
 	}
 
 	models.EditSite(map[string]interface{}{
-		"name":     site.Name,
-		"bg_title": site.BgTitle,
-		"desc":     site.Desc,
-		"img_url":  site.SiteImageURL,
+		"name":      site.Name,
+		"bg_title":  site.BgTitle,
+		"desc":      site.Desc,
+		"image_url": site.ImageURL,
 	})
 
 	c.JSON(http.StatusOK, gin.H{

@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import PutAuth from "../PutAuth";
 import useFetch from "../useFetch";
 
 const SiteSetting = () => {
@@ -7,12 +10,21 @@ const SiteSetting = () => {
     const [bg_title, setBg_title] = useState("")
     const [desc, setDesc] = useState("")
 
+    const [cookie] = useCookies("token")
+    const navigate = useNavigate()
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        
+        PutAuth("http://localhost:8000/api/v1/site", {
+            "name": name,
+            "bg_title": bg_title,
+            "desc": desc,
+            "image_url": image_url
+        }, cookie)
 
-        console.log(image_url, name, bg_title, desc)
+        navigate("/")
+        //console.log(image_url, name, bg_title, desc)
     }
 
     const {data, isPending} = useFetch("http://localhost:8000/api/v1/site")
@@ -53,7 +65,7 @@ const SiteSetting = () => {
                         className="border m-1 p-1"
                         type="text"
                         value={ bg_title }
-                        onChange={(e) => setBg_title(bg_title)}
+                        onChange={(e) => setBg_title(e.target.value)}
                     />
                 </div>
                 <div className="bg-image mx-auto p-3">
@@ -62,7 +74,7 @@ const SiteSetting = () => {
                         className="border m-1 p-1"
                         type="text"
                         value={ image_url }
-                        onChange={(e) => setImage_url(image_url)}
+                        onChange={(e) => setImage_url(e.target.value)}
                     />
                 </div>
 

@@ -5,10 +5,10 @@ package models
 type Site struct {
 	Model
 
-	SiteImageURL string `json:"image_url"` // hero image
-	Name         string `json:"name"`      // site name
-	BgTitle      string `json:"bg_title"`  // background title
-	Desc         string `json:"desc"`      //site description
+	ImageURL string `json:"image_url"` // hero image
+	Name     string `json:"name"`      // site name
+	BgTitle  string `json:"bg_title"`  // background title
+	Desc     string `json:"desc"`      //site description
 }
 
 // Variable Wen Contains the current config of the website
@@ -17,10 +17,10 @@ var Wen Site
 // As a website only has one config, AddSite should be called only once
 func AddSite(name, img_url, bgTitle, desc string) bool {
 	db.Create(&Site{
-		Name:         name,
-		SiteImageURL: img_url,
-		BgTitle:      bgTitle,
-		Desc:         desc,
+		Name:     name,
+		ImageURL: img_url,
+		BgTitle:  bgTitle,
+		Desc:     desc,
 	})
 
 	UpdateSite()
@@ -37,7 +37,7 @@ func EditSite(data map[string]interface{}) bool {
 
 // UpdateSite updates the site config stored in main memory
 func UpdateSite() bool {
-	db.First(&Wen)
+	db.First(&Wen, 1)
 
 	return true
 }
