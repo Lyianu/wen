@@ -8,7 +8,7 @@ const PageView = ( { img_url } ) => {
     const { id } = useParams();
     const [content, setContent] = useState("")
     const [title, setTitle] = useState("")
-    const {data, isPending} = useFetch("http://127.0.0.1:8000/api/v1/pages/" + id)
+    const {data, isPending} = useFetch("/api/v1/pages/" + id)
 
     useEffect(() => {
         if (data) {

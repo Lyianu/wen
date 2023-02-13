@@ -9,7 +9,7 @@ const BlogView = ( { img_url } ) => {
     const [content, setContent] = useState("")
     const [title, setTitle] = useState("")
     const [subheading, setSubheading] = useState("")
-    const {data, isPending} = useFetch("http://127.0.0.1:8000/api/v1/articles/" + id)
+    const {data, isPending} = useFetch("/api/v1/articles/" + id)
 
     useEffect(() => {
         if (data) {

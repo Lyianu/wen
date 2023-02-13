@@ -11,7 +11,7 @@ const BlogEditList = ( { page_num } ) => {
 
     const [blogs, setBlogs] = useState(null);
     const [is_pending, setIs_pending] = useState(true);
-    const {data, isPending} = useFetch("http://127.0.0.1:8000/api/v1/articles?page=" + page_num);
+    const {data, isPending} = useFetch("/api/v1/articles?page=" + page_num);
 
     const navigate = useNavigate();
     const [cookie] = useCookies("token");
