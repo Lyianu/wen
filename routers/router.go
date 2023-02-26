@@ -5,6 +5,7 @@ import (
 	"github.com/Lyianu/wen/middleware/jwt"
 	"github.com/Lyianu/wen/pkg/setting"
 	v1 "github.com/Lyianu/wen/routers/api/v1"
+	"github.com/Lyianu/wen/util"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
@@ -19,9 +20,14 @@ func InitRouter() *gin.Engine {
 	}
 
 	r.Use(static.Serve("/", static.LocalFile("frontend", true)))
-	r.NoRoute(func(c *gin.Context) {
-		c.File("./frontend/index.html")
-	})
+
+	if setting.RunMode == "release" {
+		r.NoRoute(func(c *gin.Context) {
+			c.File("./frontend/index.html")
+		})
+	} else if setting.RunMode == "debug" {
+		r.NoRoute(util.ProxyReact)
+	}
 
 	apiv1 := r.Group("/api/v1")
 	{
