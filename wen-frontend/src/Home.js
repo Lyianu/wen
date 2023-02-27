@@ -29,7 +29,6 @@ const Home = ({ title, imgUrl, desc_text}) => {
     useEffect(() => {
         if (TagList) {
             setTagList(TagList.data.lists)
-            console.log(TagList)
         }
     }, [TagList])
 

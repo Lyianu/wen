@@ -5,8 +5,8 @@ const Sidebar = ({ list }) => {
         <div className="absolute right-0 sidebar p-10 border h-max">
             {list && (
                 list.map((tag) => (
-                    <div className="tag">
-                       <Link to={"/tag/" + tag.id}>{tag.name}</Link> 
+                    <div className="tag" key={tag.id}>
+                       <Link to={`/tag/${tag.id}`}>{tag.name}</Link> 
                     </div>
                 ))
             )}
