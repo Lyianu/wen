@@ -60,6 +60,8 @@ func AddTag(c *gin.Context) {
 		} else {
 			code = e.ERROR_EXIST_TAG
 		}
+	} else {
+		util.LogValidationErrors(valid)
 	}
 
 	c.JSON(http.StatusCreated, gin.H{
