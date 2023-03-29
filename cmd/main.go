@@ -19,5 +19,6 @@ func main() {
 		MaxHeaderBytes: 1 << 20,
 	}
 
+	fmt.Println("[wen]listening on port", setting.HTTPPort)
 	s.ListenAndServe()
 }
