@@ -8,10 +8,6 @@ body {
     height: "100%";
 }
 
-.hero {
-    -webkit-text-stroke: 1px white;
-}
-
 .footer {
     -webkit-text-stroke: 1px rgb(255, 255, 255);
 }
