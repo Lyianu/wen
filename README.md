@@ -9,6 +9,7 @@
 - Admin panel ✅
 - Article writing page ✅
 - Article management ✅
+- Redis support✅
 - Article/Page Visibility
 - File/Image upload and online management
 - *Mail notification

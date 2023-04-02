@@ -5,11 +5,7 @@ const Footer = ( {title_text, absolute} ) => {
   return (
     <>
       <footer
-        className={
-          ({absolute}
-            ? "absolute w-full bottom-0 bg-gray-900"
-            : "relative") + " pb-6"
-        }
+        className="footer sticky top-[100vh] -z-10 bg-gray-900"
       >
         <div className="container mx-auto px-4">
           <hr className="mb-6 border-b-1 border-gray-700" />

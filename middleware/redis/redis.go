@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"log"
+	"net/http"
 	"sync"
 
 	"github.com/Lyianu/wen/pkg/setting"
@@ -40,6 +41,11 @@ func init() {
 
 func Redis() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		if c.Request.Method != http.MethodGet {
+			c.Next()
+			return
+		}
+
 		mu.Lock()
 		if setting.RunMode == "debug" {
 			fmt.Printf("Redis: GET %s ", c.Request.URL.Path)
