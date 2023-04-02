@@ -3,6 +3,7 @@ package routers
 import (
 	"github.com/Lyianu/wen/middleware/debug"
 	"github.com/Lyianu/wen/middleware/jwt"
+	"github.com/Lyianu/wen/middleware/redis"
 	"github.com/Lyianu/wen/pkg/setting"
 	v1 "github.com/Lyianu/wen/routers/api/v1"
 	"github.com/Lyianu/wen/util"
@@ -30,6 +31,9 @@ func InitRouter() *gin.Engine {
 	}
 
 	apiv1 := r.Group("/api/v1")
+	if setting.RedisHost != "" {
+		apiv1.Use(redis.Redis())
+	}
 	{
 		apiv1.GET("/site", v1.GetSite)
 		apiv1.POST("/site", v1.AddSite)

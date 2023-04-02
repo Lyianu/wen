@@ -16,6 +16,8 @@ var (
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
 
+	RedisHost string
+
 	PageSize  int
 	JwtSecret string
 )
@@ -31,6 +33,7 @@ func init() {
 	LoadBase()
 	LoadServer()
 	LoadApp()
+	LoadRedis()
 }
 
 func LoadBase() {
@@ -56,4 +59,12 @@ func LoadApp() {
 
 	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!)")
 	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
+}
+
+func LoadRedis() {
+	sec, err := Cfg.GetSection("redis")
+	if err != nil {
+		log.Fatal("Failed to get section 'redis'", err)
+	}
+	RedisHost = sec.Key("REDIS_HOST").MustString("")
 }
