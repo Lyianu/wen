@@ -1,9 +1,11 @@
 package models
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/Lyianu/wen/pkg/setting"
+	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -21,28 +23,42 @@ type Model struct {
 
 func init() {
 	var err error
-	var dbPath string
 
 	sec, err := setting.Cfg.GetSection("database")
 	if err != nil {
 		log.Fatal("Failed to load section 'database'", err)
 	}
 
-	dbPath = sec.Key("PATH").String()
 	// enable temporary memory database
 	if setting.RunMode == "debug" {
-		dbPath = "file::memory:?cache=shared"
+		setting.DBPath = "file::memory:?cache=shared"
+		setting.DBType = "sqlite3"
 	}
 	tablePrefix := sec.Key("TABLE_PREFIX").String()
 
-	db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{
-		NamingStrategy: schema.NamingStrategy{
-			TablePrefix:   tablePrefix,
-			SingularTable: true,
-		},
-	})
-	if err != nil {
-		panic("failed to connect to database")
+	if setting.DBType == "sqlite3" {
+		db, err = gorm.Open(sqlite.Open(setting.DBPath), &gorm.Config{
+			NamingStrategy: schema.NamingStrategy{
+				TablePrefix:   tablePrefix,
+				SingularTable: true,
+			},
+		})
+		if err != nil {
+			panic("failed to connect to database")
+		}
+	}
+
+	if setting.DBType == "mysql" {
+		dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", setting.DBUser, setting.DBPassword, setting.DBPath, setting.DBName)
+		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+			NamingStrategy: schema.NamingStrategy{
+				TablePrefix:   tablePrefix,
+				SingularTable: true,
+			},
+		})
+		if err != nil {
+			panic("failed to connect to database")
+		}
 	}
 
 	db.AutoMigrate(&Tag{}, &Article{}, &User{}, &Page{}, &Site{})

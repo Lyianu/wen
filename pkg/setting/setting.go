@@ -18,6 +18,13 @@ var (
 
 	RedisHost string
 
+	DBType        string
+	DBPath        string
+	DBTablePrefix string
+	DBName        string
+	DBUser        string
+	DBPassword    string
+
 	PageSize  int
 	JwtSecret string
 )
@@ -32,6 +39,7 @@ func init() {
 
 	LoadBase()
 	LoadServer()
+	LoadDB()
 	LoadApp()
 	LoadRedis()
 }
@@ -59,6 +67,19 @@ func LoadApp() {
 
 	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!)")
 	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
+}
+
+func LoadDB() {
+	sec, err := Cfg.GetSection("database")
+	if err != nil {
+		log.Fatal("Failed to get section 'database'", err)
+	}
+	DBType = sec.Key("TYPE").MustString("sqlite")
+	DBPath = sec.Key("PATH").MustString("data/app.db")
+	DBName = sec.Key("NAME").MustString("")
+	DBUser = sec.Key("USER").MustString("")
+	DBPassword = sec.Key("PASSWD").MustString("")
+	DBTablePrefix = sec.Key("TABLE_PREFIX").MustString("wen_")
 }
 
 func LoadRedis() {
