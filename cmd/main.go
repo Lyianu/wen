@@ -1,8 +1,14 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/Lyianu/wen/pkg/setting"
 	"github.com/Lyianu/wen/routers"
@@ -20,5 +26,21 @@ func main() {
 	}
 
 	fmt.Println("[wen]listening on port", setting.HTTPPort)
-	s.ListenAndServe()
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
+
+	go s.ListenAndServe()
+	<-stop
+	fmt.Println("[wen]Received signal to stop")
+
+	timeoutCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := s.Shutdown(timeoutCtx); err != nil {
+		log.Fatalf("Error stopping HTTP server: %v", err)
+	}
+
+	cancel()
+	fmt.Println("[wen]Graceful shutdown complete")
 }
